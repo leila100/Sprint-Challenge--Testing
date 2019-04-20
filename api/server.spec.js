@@ -104,6 +104,11 @@ describe("GET /games/:id", () => {
       genre: "Racing video game",
       releaseYear: 1992
     });
+    Games.insert({
+      title: "Pacman",
+      genre: "Arcade",
+      releaseYear: 1980
+    });
     const res = await request(server).get("/games/1");
     expect(res.status).toBe(200);
     expect(res.body.title).toBe("Mario Kart");
@@ -123,10 +128,15 @@ describe("DELETE /games/:id", () => {
       genre: "Racing video game",
       releaseYear: 1992
     });
+    Games.insert({
+      title: "Pacman",
+      genre: "Arcade",
+      releaseYear: 1980
+    });
     const res = await request(server).delete("/games/1");
     expect(res.status).toBe(200);
     expect(res.body).toBe(1);
     const games = Games.fetchAll();
-    expect(games.length).toBe(0);
+    expect(games.length).toBe(1);
   });
 });
