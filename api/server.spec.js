@@ -50,7 +50,7 @@ describe("POST /games", () => {
   });
 
   // adding the game twice to be sure it gets rejected
-  it("should not allow to add a games with an existing title", async () => {
+  it("should not allow to add a game with an existing title", async () => {
     await request(server)
       .post("/games")
       .send({
@@ -74,10 +74,6 @@ describe("POST /games", () => {
 });
 
 describe("GET /games", () => {
-  beforeEach(() => {
-    Games.reset();
-  });
-
   it("should always return an array - empty if no games", async () => {
     const res = await request(server).get("/games");
     expect(res.status).toBe(200);
