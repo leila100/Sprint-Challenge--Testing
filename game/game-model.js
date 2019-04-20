@@ -26,5 +26,6 @@ function reset() {
 }
 
 function fetchGameById(id) {
-  return games.find(g => g.id === id);
+  const game = games.find(g => g.id === id);
+  return game;
 }

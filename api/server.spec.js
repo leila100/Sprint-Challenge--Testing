@@ -74,6 +74,10 @@ describe("POST /games", () => {
 });
 
 describe("GET /games", () => {
+  beforeEach(() => {
+    Games.reset();
+  });
+
   it("should always return an array - empty if no games", async () => {
     const res = await request(server).get("/games");
     expect(res.status).toBe(200);
@@ -92,5 +96,16 @@ describe("GET /games/:id", () => {
     });
     const res = await request(server).get("/games/11");
     expect(res.status).toBe(404);
+  });
+
+  it("should return the right game with the id", async () => {
+    Games.insert({
+      title: "Mario Kart",
+      genre: "Racing video game",
+      releaseYear: 1992
+    });
+    const res = await request(server).get("/games/1");
+    expect(res.status).toBe(200);
+    expect(res.body.title).toBe("Mario Kart");
   });
 });
