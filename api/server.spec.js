@@ -111,9 +111,20 @@ describe("GET /games/:id", () => {
 });
 
 describe("DELETE /games/:id", () => {
-  it("should return a status of 404 if games doesn't exist", async () => {
+  it("should return a status of 404 and count as 0 if games doesn't exist", async () => {
     const res = await request(server).delete("/games/11");
     expect(res.status).toBe(404);
     expect(res.body).toBe(0);
+  });
+
+  it("should return a status of 200 and count of 1 if game deleted", async () => {
+    Games.insert({
+      title: "Mario Kart",
+      genre: "Racing video game",
+      releaseYear: 1992
+    });
+    const res = await request(server).delete("/games/1");
+    expect(res.status).toBe(200);
+    expect(res.body).toBe(1);
   });
 });
