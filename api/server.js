@@ -1,16 +1,9 @@
 const express = require("express");
 const server = express();
 
+const Games = require("../game/game-model");
+
 server.use(express.json());
-//get the list of current games
-let games = [
-  {
-    title: "Pacman",
-    genre: "Arcade",
-    releaseYear: 1980
-  }
-];
-// let games;
 
 server.get("/", (req, res) => {
   res.status(200).json("Welcome to Games API Testing App");
@@ -21,24 +14,20 @@ server.post("/games", (req, res) => {
   if (!title || !genre) {
     res.status(422).json("The title and genre of the game are required information");
   } else {
-    if (!games) {
-      games = [];
-    }
+    let games = Games.fetchAll();
     const game = games.find(g => g.title === title);
     if (game) {
       res.status(405).json("A game with this title already exists");
     } else {
       const newGame = { title, genre, releaseYear };
-      games.push(newGame);
+      games = Games.insert(newGame);
       res.status(201).json(games);
     }
   }
 });
 
 server.get("/games", (req, res) => {
-  if (!games) {
-    games = [];
-  }
+  const games = Games.fetchAll();
   res.status(200).json(games);
 });
 
