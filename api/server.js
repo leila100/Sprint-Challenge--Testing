@@ -2,7 +2,7 @@ const express = require("express");
 const server = express();
 
 server.use(express.json());
-
+//get the list of current games
 let games = [
   {
     title: "Pacman",

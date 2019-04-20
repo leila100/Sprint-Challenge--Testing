@@ -32,7 +32,14 @@ describe("POST /games", () => {
       .set("Accept", "application/json");
     expect(res.status).toBe(201);
     expect(res.type).toBe("application/json");
+    //check that the game has been added
     expect(res.body.length).toBe(2);
+    const game = res.body.find(g => g.title === "Mario Kart");
+    expect(game).toEqual({
+      title: "Mario Kart",
+      genre: "Racing video game",
+      releaseYear: 1992
+    });
   });
 });
 
