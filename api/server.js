@@ -3,6 +3,14 @@ const server = express();
 
 server.use(express.json());
 
+const games = [
+  {
+    title: "Pacman",
+    genre: "Arcade",
+    releaseYear: 1980
+  }
+];
+
 server.get("/", (req, res) => {
   res.status(200).json("Welcome to Games API Testing App");
 });
@@ -12,7 +20,9 @@ server.post("/games", (req, res) => {
   if (!title || !genre) {
     res.status(422).json("The title and genre of the game are required information");
   } else {
-    res.status(200).json("");
+    const newGame = { title, genre, releaseYear };
+    games.push(newGame);
+    res.status(201).json(games);
   }
 });
 module.exports = server;

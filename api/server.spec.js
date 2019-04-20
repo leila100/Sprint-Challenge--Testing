@@ -2,25 +2,6 @@ const request = require("supertest");
 
 const server = require("./server.js");
 
-let games = [
-  {
-    title: "Pacman", // required
-    genre: "Arcade", // required
-    releaseYear: 1980 // not required
-  }
-];
-
-beforeEach(async () => {
-  //reset the games list to initial list
-  games = [
-    {
-      title: "Pacman",
-      genre: "Arcade",
-      releaseYear: 1980
-    }
-  ];
-});
-
 describe("GET /", () => {
   it("should return status 200, json message Welcome to Games API Testing App", async () => {
     const res = await request(server).get("/");
@@ -38,5 +19,28 @@ describe("POST /games", () => {
       .send({})
       .set("Accept", "application/json");
     expect(res.status).toBe(422);
+  });
+
+  it("should return a status of 201, add game to games array successfully", async () => {
+    const res = await request(server)
+      .post("/games")
+      .send({
+        title: "Mario Kart",
+        genre: "Racing video game",
+        releaseYear: 1992
+      })
+      .set("Accept", "application/json");
+    expect(res.status).toBe(201);
+    expect(res.type).toBe("application/json");
+    expect(res.body.length).toBe(2);
+  });
+});
+
+describe("GET /games", () => {
+  it("should always return an array", async () => {
+    const res = await request(server).get("/games");
+    expect(res.status).toBe(200);
+    expect(res.type).toBe("application/json");
+    expect(res.body).toBeInstanceOf(Array);
   });
 });
