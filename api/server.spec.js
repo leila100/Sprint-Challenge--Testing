@@ -30,3 +30,13 @@ describe("GET /", () => {
     expect(res.body).toBe("Welcome to Games API Testing App");
   });
 });
+
+describe("POST /games", () => {
+  it("should return a status of 422 if required fields are not included", async () => {
+    const res = await request(server)
+      .post("/games")
+      .send({})
+      .set("Accept", "application/json");
+    expect(res.status).toBe(422);
+  });
+});
