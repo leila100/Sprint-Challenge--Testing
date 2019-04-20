@@ -41,6 +41,20 @@ describe("POST /games", () => {
       releaseYear: 1992
     });
   });
+
+  it("should not allow to add a games with an existing title", async () => {
+    const res = await request(server)
+      .post("/games")
+      .send({
+        title: "Mario Kart",
+        genre: "Racing video game",
+        releaseYear: 1992
+      })
+      .set("Accept", "application/json");
+    expect(res.status).toBe(405);
+    expect(res.type).toBe("application/json");
+    expect(res.body).toBe("A game with this title already exists");
+  });
 });
 
 describe("GET /games", () => {
@@ -51,7 +65,7 @@ describe("GET /games", () => {
     expect(res.body).toBeInstanceOf(Array);
   });
 
-  it.only("should return empty array if no games", async () => {
+  xit("should return empty array if no games", async () => {
     const res = await request(server).get("/games");
     expect(res.status).toBe(200);
     expect(res.type).toBe("application/json");
