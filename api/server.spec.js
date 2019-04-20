@@ -109,3 +109,11 @@ describe("GET /games/:id", () => {
     expect(res.body.title).toBe("Mario Kart");
   });
 });
+
+describe("DELETE /games/:id", () => {
+  it("should return a status of 404 if games doesn't exist", async () => {
+    const res = await request(server).delete("/games/11");
+    expect(res.status).toBe(404);
+    expect(res.body).toBe(0);
+  });
+});

@@ -5,7 +5,8 @@ module.exports = {
   fetchAll,
   insert,
   reset,
-  fetchGameById
+  fetchGameById,
+  remove
 };
 
 function fetchAll() {
@@ -28,4 +29,14 @@ function reset() {
 function fetchGameById(id) {
   const game = games.find(g => g.id === id);
   return game;
+}
+
+function remove(id) {
+  const count = games.find(g => g.id === id);
+  if (count) {
+    games.filter(game => game.id !== id);
+    return 1;
+  } else {
+    return 0;
+  }
 }

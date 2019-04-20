@@ -41,4 +41,14 @@ server.get("/games/:id", (req, res) => {
   }
 });
 
+server.delete("/games/:id", (req, res) => {
+  const { id } = req.params;
+  const count = Games.remove(Number(id));
+  if (count === 0) {
+    res.status(404).json(count);
+  } else {
+    return res.status(200).json(count);
+  }
+});
+
 module.exports = server;
