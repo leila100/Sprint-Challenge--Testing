@@ -44,7 +44,8 @@ describe("POST /games", () => {
     expect(game).toEqual({
       title: "Mario Kart",
       genre: "Racing video game",
-      releaseYear: 1992
+      releaseYear: 1992,
+      id: 1
     });
   });
 
