@@ -3,13 +3,14 @@ const server = express();
 
 server.use(express.json());
 //get the list of current games
-let games = [
-  {
-    title: "Pacman",
-    genre: "Arcade",
-    releaseYear: 1980
-  }
-];
+// let games = [
+//   {
+//     title: "Pacman",
+//     genre: "Arcade",
+//     releaseYear: 1980
+//   }
+// ];
+let games;
 
 server.get("/", (req, res) => {
   res.status(200).json("Welcome to Games API Testing App");

@@ -50,4 +50,11 @@ describe("GET /games", () => {
     expect(res.type).toBe("application/json");
     expect(res.body).toBeInstanceOf(Array);
   });
+
+  it.only("should return empty array if no games", async () => {
+    const res = await request(server).get("/games");
+    expect(res.status).toBe(200);
+    expect(res.type).toBe("application/json");
+    expect(res.body).toHaveLength(0);
+  });
 });
