@@ -126,5 +126,7 @@ describe("DELETE /games/:id", () => {
     const res = await request(server).delete("/games/1");
     expect(res.status).toBe(200);
     expect(res.body).toBe(1);
+    const games = Games.fetchAll();
+    expect(games.length).toBe(0);
   });
 });

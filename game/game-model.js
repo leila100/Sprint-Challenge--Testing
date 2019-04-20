@@ -34,7 +34,7 @@ function fetchGameById(id) {
 function remove(id) {
   const count = games.find(g => g.id === id);
   if (count) {
-    games.filter(game => game.id !== id);
+    games = games.filter(game => game.id !== id);
     return 1;
   } else {
     return 0;
