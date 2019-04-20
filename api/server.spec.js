@@ -82,3 +82,15 @@ describe("GET /games", () => {
     expect(res.body).toHaveLength(0);
   });
 });
+
+describe("GET /games/:id", () => {
+  it("should return a status 404 if id invalid", async () => {
+    Games.insert({
+      title: "Mario Kart",
+      genre: "Racing video game",
+      releaseYear: 1992
+    });
+    const res = await request(server).get("/games/11");
+    expect(res.status).toBe(404);
+  });
+});

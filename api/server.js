@@ -31,4 +31,12 @@ server.get("/games", (req, res) => {
   res.status(200).json(games);
 });
 
+server.get("/games/:id", (req, res) => {
+  const { id } = req.params;
+  const game = Games.fetchGameById(id);
+  if (!game) {
+    res.status(404).json("Invalid id");
+  }
+});
+
 module.exports = server;
